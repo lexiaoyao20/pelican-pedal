@@ -1,0 +1,121 @@
+<!doctype html>
+<html lang="zh-Hans">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+  <meta name="theme-color" content="#f6f2e6">
+  <meta name="description" content="和鹈鹕一起骑过海风栈道与彩帆渔港，赶在最后一缕夕阳里抵达灯塔。">
+  <title>Pelican Pedal · 鹈鹕骑行记 | Tidepool Arcade</title>
+  <link rel="icon" href="assets/tidepool.svg" type="image/svg+xml">
+  <link rel="stylesheet" href="styles.css?v=3">
+  <script defer src="build/game.js?v=3"></script>
+</head>
+<body>
+  <svg class="svg-defs" xmlns="http://www.w3.org/2000/svg" aria-hidden="true">
+    <defs>
+      <symbol id="i-sound" viewBox="0 0 24 24"><g fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M3 9h4l5-4v14l-5-4H3z"/><path d="M16 8a6 6 0 0 1 0 8m3-11a10 10 0 0 1 0 14"/></g></symbol>
+      <symbol id="i-mute" viewBox="0 0 24 24"><g fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M3 9h4l5-4v14l-5-4H3z"/><path d="m17 9 5 6m0-6-5 6"/></g></symbol>
+      <symbol id="i-guide" viewBox="0 0 24 24"><g fill="none" stroke="currentColor" stroke-linejoin="round" stroke-width="1.9"><path d="M3 5c3-1 6-1 9 1 3-2 6-2 9-1v14c-3-1-6-1-9 1-3-2-6-2-9-1zM12 6v14"/></g></symbol>
+      <symbol id="i-full" viewBox="0 0 24 24"><path d="M3 3h7v2H5v5H3zm11 0h7v7h-2V5h-5zM3 14h2v5h5v2H3zm16 0h2v7h-7v-2h5z" fill="currentColor"/></symbol>
+      <symbol id="i-small" viewBox="0 0 24 24"><path d="M8 3h2v7H3V8h5zm6 0h2v5h5v2h-7zM3 14h7v7H8v-5H3zm11 0h7v2h-5v5h-2z" fill="currentColor"/></symbol>
+      <symbol id="i-pause" viewBox="0 0 24 24"><path d="M5 4h5v16H5zm9 0h5v16h-5z" fill="currentColor"/></symbol>
+      <symbol id="i-play" viewBox="0 0 16 16"><path fill="currentColor" d="M3.4 2.45c0-.8.89-1.28 1.56-.85l8.25 5.54a1.02 1.02 0 0 1 0 1.72l-8.25 5.53a1.01 1.01 0 0 1-1.56-.84z"/></symbol>
+      <symbol id="i-fish" viewBox="0 0 22 14"><path d="M1 3.2 5.2 5.1C9 .7 16.5 1.4 21 6.8c-4.3 5.4-11.5 6-15.8 2.2L1 11l1.1-4z" fill="#e5a762" stroke="#a16f41" stroke-width=".85" stroke-linejoin="round"/><path d="M6.7 7.1c3 2.5 8.1 3.5 12.4.1-3.5 4.3-8.7 4.6-12.4 1z" fill="#ffe3a0"/><circle cx="16.3" cy="5.9" r="1.05" fill="#3c4540"/></symbol>
+      <symbol id="i-heart" viewBox="0 0 16 14"><path fill="currentColor" d="M8 13.55C7.24 13.1.4 8.78.4 4.72.4.85 5.23-.62 8 2.72 10.78-.58 15.6.83 15.6 4.72c0 4.06-6.86 8.39-7.6 8.83z"/><path d="M2.38 4.41c.09-1.17.79-1.87 1.89-2.13" fill="none" stroke="#fff5d5" stroke-opacity=".74" stroke-width=".9" stroke-linecap="round"/></symbol>
+      <symbol id="i-trophy" viewBox="0 0 18 16"><g stroke="currentColor" stroke-width="1.35" stroke-linejoin="round"><path d="M5 .9h8v3.8c0 2.9-1.7 5-4 5s-4-2.1-4-5z" fill="currentColor"/><path fill="none" d="M5 2.4H1.5v1.7C1.5 6.4 3.2 7.6 6 7.7m7-5.3h3.5v1.7c0 2.3-1.7 3.5-4.5 3.6M9 9.5v3.7m-3.8 1h7.6"/></g></symbol>
+      <symbol id="i-flag" viewBox="0 0 18 18"><path fill="none" stroke="currentColor" stroke-width="1.65" stroke-linecap="round" d="M3.1 1.5v15"/><path d="M4 2.25c3.8-1.65 6.6 1.8 11.1-.1v7.35c-4.3 2.05-7.45-1.5-11.1.1z" fill="currentColor"/></symbol>
+      <symbol id="i-route" viewBox="0 0 24 24"><g fill="none" stroke="currentColor" stroke-width="2" stroke-linejoin="round"><path d="M3 17h11a3 3 0 0 0 0-6H9a3 3 0 0 1 0-6h10"/><path d="m16 2 4 3-4 3"/></g><circle cx="4" cy="17" r="2.6" fill="currentColor"/></symbol>
+      <symbol id="i-keys" viewBox="0 0 24 24"><g stroke="currentColor" fill="none" stroke-width="1.7"><rect x="1.5" y="5" width="21" height="14" rx="2"/><path d="M5 9h2m2 0h2m2 0h2m2 0h2M5 12h2m2 0h2m2 0h2m2 0h2M7 15h10"/></g></symbol>
+      <symbol id="i-bolt" viewBox="0 0 16 16"><path fill="currentColor" d="M9.2.5 2.45 9h4.6L5.7 15.5l7.85-9.05H8.8z"/></symbol>
+      <symbol id="i-pin" viewBox="0 0 16 16"><path fill="currentColor" d="M5 1h6v1h2v2h1v5h-2v2h-1v2H9v2H7v-2H5v-2H4V9H2V4h1V2h2zm1 3v4h4V4z"/></symbol>
+      <symbol id="i-close" viewBox="0 0 16 16"><path fill="currentColor" d="m2 3 1-1 5 5 5-5 1 1-5 5 5 5-1 1-5-5-5 5-1-1 5-5z"/></symbol>
+    </defs>
+  </svg>
+  <header class="topbar">
+    <div class="wrap masthead">
+      <div class="brand" aria-label="Tidepool Arcade">
+        <img src="assets/tidepool.svg" alt="" width="43" height="43">
+        <span class="wordmark">Tidepool</span><span class="arcade-tag">ARCADE</span>
+      </div>
+      <nav aria-label="游戏设置">
+        <button type="button" class="nav-button" id="sound" aria-pressed="true"><svg class="icon"><use href="#i-sound"/></svg><span id="sound-label">声音开</span></button>
+        <span class="nav-rule"></span>
+        <button type="button" class="nav-button" id="guide-open"><svg class="icon"><use href="#i-guide"/></svg><span>玩法指南</span></button>
+      </nav>
+    </div>
+  </header>
+  <main class="wrap main">
+    <div class="route-heading">
+      <div class="route-title"><span class="route-number">ROUTE 01</span><h2>灯塔海岸</h2><span class="route-english">LIGHTHOUSE COAST</span></div>
+      <div class="record"><svg class="glyph"><use href="#i-trophy"/></svg><span>最远骑行</span><strong id="record">0</strong><span class="unit">m</span></div>
+    </div>
+    <section class="cabinet" id="cabinet" aria-label="鹈鹕骑行记游戏机">
+      <div class="hud">
+        <div class="hud-stats">
+          <div class="health" id="health" role="img" aria-label="体力 3 / 3"><span class="player-label" aria-hidden="true">1P</span><span class="hearts" aria-hidden="true"><svg><use href="#i-heart"/></svg><svg><use href="#i-heart"/></svg><svg><use href="#i-heart"/></svg></span></div>
+          <span class="hud-rule"></span>
+          <div class="stat fish-stat"><svg class="glyph"><use href="#i-fish"/></svg><span class="stat-word">鱼获</span><strong id="fish">00</strong></div>
+          <span class="hud-rule"></span>
+          <div class="stat distance-stat"><svg class="glyph"><use href="#i-flag"/></svg><span class="stat-word">距离</span><strong id="distance">0000</strong><small>m</small></div>
+        </div>
+        <div class="screen-tools">
+          <button class="screen-button" type="button" id="pause" aria-label="暂停骑行" title="暂停骑行 (P)" disabled><svg class="icon"><use href="#i-pause"/></svg></button>
+          <button class="screen-button" type="button" id="full" aria-label="全屏" title="全屏 (F)"><svg class="icon"><use href="#i-full"/></svg></button>
+        </div>
+      </div>
+      <div class="stage" id="stage" role="region" tabindex="-1" aria-label="游戏画面。空格跳跃，长按滑翔，向右键冲刺。">
+        <div class="world" id="world" aria-hidden="true"></div>
+        <div class="intro" id="intro">
+          <div class="game-ribbon"><span></span>鹈鹕骑行记</div>
+          <h1 class="game-title" aria-label="Pelican Pedal"><span>Pelican</span><em>Pedal</em></h1>
+          <p class="mission">收集小鱼，一路骑向灯塔。</p>
+          <button class="start-button" type="button" id="start"><svg class="glyph"><use href="#i-play"/></svg><span>开始骑行</span><kbd aria-hidden="true">↵</kbd></button>
+        </div>
+        <div id="stage-toast" class="stage-toast" aria-live="polite"></div>
+        <div class="veil" id="veil" hidden>
+          <div class="ticket" id="ticket" role="dialog" aria-modal="true" aria-labelledby="ticket-title" tabindex="-1">
+            <div class="postcard" id="postcard" hidden><span>TWILIGHT POINT</span><i aria-hidden="true">✦</i></div>
+            <span class="ticket-label" id="ticket-label"></span><div class="ticket-symbol" id="ticket-symbol"></div>
+            <h2 id="ticket-title"></h2><p id="ticket-copy"></p>
+            <div class="result-stats" id="result-stats" hidden></div>
+            <div class="ticket-buttons"><button class="start-button" type="button" id="ticket-action"></button><button class="quiet-button" type="button" id="ticket-secondary"></button></div>
+          </div>
+        </div>
+      </div>
+      <div class="touch-actions" id="touch-actions" hidden>
+        <button type="button" id="touch-boost" aria-label="冲刺"><svg class="glyph"><use href="#i-bolt"/></svg><small>冲刺</small></button>
+        <button type="button" id="touch-jump" aria-label="跳跃，长按滑翔">↑<small>跳跃 / 长按滑翔</small></button>
+      </div>
+      <div class="itinerary">
+        <div class="route-key"><svg class="icon"><use href="#i-route"/></svg><span>骑行路线</span></div>
+        <div class="route-track" aria-label="沿途站点">
+          <div class="track-rail"><i id="track-fill"></i></div>
+          <span class="stop current" data-stop="0"><i></i><span>海风栈道</span></span>
+          <span class="stop" data-stop="1"><i></i><span>彩帆渔港</span></span>
+          <span class="stop" data-stop="2"><i></i><span>暮光灯塔</span></span>
+          <span class="stop finish" data-stop="3"><i></i><svg class="glyph"><use href="#i-flag"/></svg><span class="sr-only">终点</span></span>
+        </div>
+        <span class="length">1.2 <span>KM</span></span>
+      </div>
+      <dialog id="guide" aria-labelledby="guide-title">
+        <div class="guide-top"><span class="ticket-label">FIELD GUIDE</span><button type="button" class="close-button" id="guide-close" aria-label="关闭玩法指南"><svg class="icon"><use href="#i-close"/></svg></button></div>
+        <h2 id="guide-title">海岸骑行指南</h2>
+        <p>鹈鹕会自己踩踏板。穿过三个海岸站点，骑完 1,200 米就能抵达灯塔。</p>
+        <div class="guide-row"><kbd>SPACE</kbd><div><b>跳跃与滑翔</b><span>按空格或 ↑ 起跳，按住可展开翅膀，缓缓落地。手机上长按跳跃键或画面。</span></div></div>
+        <div class="guide-row"><kbd>→</kbd><div><b>冲刺</b><span>按 → 或 Shift 加速，可以冲开路障。每 5 秒可用一次。</span></div></div>
+        <div class="guide-row"><svg class="guide-fish"><use href="#i-fish"/></svg><div><b>沿路收集</b><span>普通小鱼计 1 条，金鱼计 3 条。撞上木箱、螃蟹或浮标会失去一颗心。</span></div></div>
+        <button class="start-button" type="button" id="guide-done">明白了 <span aria-hidden="true">↵</span></button>
+      </dialog>
+    </section>
+    <div class="controls">
+      <div class="controls-title"><svg class="icon"><use href="#i-keys"/></svg><b>操作</b></div>
+      <div class="control"><kbd>SPACE</kbd><span>跳跃 <i>/</i> 长按滑翔</span></div>
+      <div class="control"><kbd>→</kbd><span>冲刺</span></div>
+      <div class="control"><kbd>P</kbd><span>暂停</span></div>
+      <div class="touch-hint">轻点画面跳跃，长按滑翔</div>
+      <span class="input-status"><i></i><span id="input-status">准备就绪</span></span>
+    </div>
+  </main>
+  <span class="sr-only" id="announcer" aria-live="polite"></span>
+</body>
+</html>
