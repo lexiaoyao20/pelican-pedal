@@ -7,8 +7,9 @@
   <meta name="description" content="和鹈鹕一起骑过海风栈道与彩帆渔港，赶在最后一缕夕阳里抵达灯塔。">
   <title>Pelican Pedal · 鹈鹕骑行记 | Tidepool Arcade</title>
   <link rel="icon" href="assets/tidepool.svg" type="image/svg+xml">
-  <link rel="stylesheet" href="styles.css?v=3">
-  <script defer src="build/game.js?v=3"></script>
+  <link rel="preload" as="image" href="assets/art/rider-portraits.webp">
+  <link rel="stylesheet" href="styles.css?v=4">
+  <script defer src="build/game.js?v=4"></script>
 </head>
 <body>
   <svg class="svg-defs" xmlns="http://www.w3.org/2000/svg" aria-hidden="true">
@@ -69,7 +70,10 @@
           <div class="game-ribbon"><span></span>鹈鹕骑行记</div>
           <h1 class="game-title" aria-label="Pelican Pedal"><span>Pelican</span><em>Pedal</em></h1>
           <p class="mission">收集小鱼，一路骑向灯塔。</p>
-          <button class="start-button" type="button" id="start"><svg class="glyph"><use href="#i-play"/></svg><span>开始骑行</span><kbd aria-hidden="true">↵</kbd></button>
+          <div class="intro-actions">
+            <button class="start-button" type="button" id="start"><svg class="glyph"><use href="#i-play"/></svg><span>开始骑行</span><kbd aria-hidden="true">↵</kbd></button>
+            <button class="rider-button" type="button" id="rider-open" aria-haspopup="dialog" aria-controls="rider-picker" aria-label="选择骑手，当前为鹈鹕" disabled><span class="rider-portrait" id="rider-thumb" data-rider="pelican" aria-hidden="true"></span><span>换骑手</span><svg viewBox="0 0 12 12" width="11" height="11" aria-hidden="true"><path d="m2 4.5 4 4 4-4" fill="none" stroke="currentColor" stroke-width="1.4" stroke-linecap="round"/></svg></button>
+          </div>
         </div>
         <div id="stage-toast" class="stage-toast" aria-live="polite"></div>
         <div class="veil" id="veil" hidden>
@@ -87,7 +91,7 @@
         <button type="button" id="touch-jump" aria-label="跳跃，长按滑翔">↑<small>跳跃 / 长按滑翔</small></button>
       </div>
       <div class="itinerary">
-        <div class="route-key"><svg class="icon"><use href="#i-route"/></svg><span>骑行路线</span></div>
+        <div class="route-key"><svg class="icon"><use href="#i-route"/></svg><span id="view-name">骑行路线</span></div>
         <div class="route-track" aria-label="沿途站点">
           <div class="track-rail"><i id="track-fill"></i></div>
           <span class="stop current" data-stop="0"><i></i><span>海风栈道</span></span>
@@ -97,13 +101,25 @@
         </div>
         <span class="length">1.2 <span>KM</span></span>
       </div>
+      <dialog id="rider-picker" aria-labelledby="rider-title">
+        <div class="guide-top"><h2 id="rider-title">选择骑手</h2><button class="close-button" type="button" id="rider-close" aria-label="关闭骑手选择"><svg class="icon"><use href="#i-close"/></svg></button></div>
+        <div class="rider-options" id="rider-options"></div>
+        <p id="rider-notice" role="status"></p>
+      </dialog>
       <dialog id="guide" aria-labelledby="guide-title">
         <div class="guide-top"><span class="ticket-label">FIELD GUIDE</span><button type="button" class="close-button" id="guide-close" aria-label="关闭玩法指南"><svg class="icon"><use href="#i-close"/></svg></button></div>
         <h2 id="guide-title">海岸骑行指南</h2>
-        <p>鹈鹕会自己踩踏板。穿过三个海岸站点，骑完 1,200 米就能抵达灯塔。</p>
-        <div class="guide-row"><kbd>SPACE</kbd><div><b>跳跃与滑翔</b><span>按空格或 ↑ 起跳，按住可展开翅膀，缓缓落地。手机上长按跳跃键或画面。</span></div></div>
+        <p>出发前可以更换骑手。骑手会自己踩踏板，穿过三个海岸站点，骑完 1,200 米就能抵达灯塔。</p>
+        <div class="guide-row"><kbd>SPACE</kbd><div><b>跳跃与滑翔</b><span>按空格或 ↑ 起跳，继续按住可借着海风滑翔。手机上长按跳跃键或画面。</span></div></div>
         <div class="guide-row"><kbd>→</kbd><div><b>冲刺</b><span>按 → 或 Shift 加速，可以冲开路障。每 5 秒可用一次。</span></div></div>
         <div class="guide-row"><svg class="guide-fish"><use href="#i-fish"/></svg><div><b>沿路收集</b><span>普通小鱼计 1 条，金鱼计 3 条。撞上木箱、螃蟹或浮标会失去一颗心。</span></div></div>
+        <details class="wildlife-guide">
+          <summary>沿途动物图鉴</summary>
+          <ul aria-label="护栏外的六种动物">
+            <li><i aria-hidden="true"></i>翠鸟</li><li><i aria-hidden="true"></i>白鹭</li><li><i aria-hidden="true"></i>蛎鹬</li>
+            <li><i aria-hidden="true"></i>海豹</li><li><i aria-hidden="true"></i>海豚</li><li><i aria-hidden="true"></i>港口猫</li>
+          </ul>
+        </details>
         <button class="start-button" type="button" id="guide-done">明白了 <span aria-hidden="true">↵</span></button>
       </dialog>
     </section>

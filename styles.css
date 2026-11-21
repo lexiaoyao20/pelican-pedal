@@ -94,7 +94,7 @@ nav { gap:20px; }
 .world, .world canvas { display:block; position:absolute!important; inset:0; width:100%!important; height:100%!important; }
 .world { z-index:-1; pointer-events:none; }
 .world .panorama { display:block; position:absolute; top:0; left:0; max-width:none; transform-origin:top left; will-change:transform,opacity; }
-.world canvas { z-index:1; }
+.world canvas { z-index:2; }
 .intro { position:absolute; left:6.2%; top:44%; transform:translateY(-50%); display:flex; flex-direction:column; align-items:flex-start; user-select:none; }
 .game-ribbon { display:flex; align-items:center; gap:10px; margin-left:3px; color:#275659; font-size:clamp(12px,1.03vw,16px); font-weight:750; letter-spacing:.22em; }
 .game-ribbon span { width:28px; height:1.5px; background:#b57546; }
@@ -107,9 +107,19 @@ nav { gap:20px; }
 .start-button:hover { background:#a8432d; }
 .start-button:active:not(:disabled) { translate:0 1px; box-shadow:0 1px 3px #562f262b; }
 .start-button kbd { display:grid; place-items:center; width:22px; height:21px; padding:0; margin-left:6px; border-color:#f4d4ad6e; background:#ffffff0c; color:#ffebc7; box-shadow:none; font:600 14px/1 var(--mono); }
+.intro-actions { display:flex; align-items:center; gap:11px; }
+.rider-button { display:flex; align-items:center; gap:7px; min-height:42px; padding:3px 11px 3px 5px; border:1px solid #7d927d; border-radius:6px; color:#284a43; background:#fff8e7f2; font-size:13px; font-weight:700; }
+.rider-button:hover:not(:disabled) { background:#fffdf3; border-color:#426b61; }
+.rider-button:disabled { opacity:.65; }
+.rider-portrait { display:block; flex:none; border-radius:50%; background:#f3eedf url("assets/art/rider-portraits.webp") 0 0/200% 200% no-repeat; box-shadow:inset 0 0 0 1px #887f6130; }
+.rider-portrait[data-rider="puffin"] { background-position:100% 0; }
+.rider-portrait[data-rider="mallard"] { background-position:0 100%; }
+.rider-portrait[data-rider="squirrel"] { background-position:100% 100%; }
+.rider-button .rider-portrait { width:30px; height:30px; }
 .itinerary { gap:25px; min-height:57px; padding:12px 22px; background:var(--panel); border-top:1px solid #b8ac90; }
 .route-key { gap:8px; padding-right:20px; border-right:1px solid #d5d5c5; font-size:13px; font-weight:710; white-space:nowrap; }
 .route-key .icon { width:17px; height:17px; }
+.route-key span { min-inline-size:4em; }
 .route-track { position:relative; display:flex; flex:1; justify-content:space-between; align-items:center; min-width:0; }
 .track-rail { position:absolute; top:50%; left:7px; right:6px; height:1px; background:repeating-linear-gradient(to right,#a5b4a1 0 4px,transparent 4px 8px); }
 .track-rail i { display:block; width:0; height:2px; background:#4a8b7a; }
@@ -161,6 +171,23 @@ kbd { display:inline-flex; align-items:center; justify-content:center; min-width
 .finish-ticket .ticket-symbol { display:none; }
 dialog { position:fixed; inset:0; width:min(420px,calc(100% - 36px)); max-height:92dvh; margin:auto; padding:23px 25px 26px; overflow:auto; }
 dialog::backdrop { background:#193c43ac; }
+#rider-picker { width:min(448px,calc(100% - 28px)); }
+.rider-options { display:grid; grid-template-columns:repeat(2,minmax(0,1fr)); gap:10px; margin-top:15px; }
+.rider-option { position:relative; display:grid; justify-items:center; gap:4px; padding:9px 8px 8px; background:linear-gradient(#fbf8ea,#f1ebd8); border:1px solid #d5cfb7; border-radius:6px; font-size:14px; font-weight:700; }
+.rider-option .rider-portrait { width:80px; height:80px; }
+.rider-option:hover { border-color:#749387; }
+.rider-option[aria-pressed="true"] { border-color:#3f7869; background:linear-gradient(#f1f3e4,#e0ead9); }
+.rider-option[aria-pressed="true"]::after { content:'✓'; position:absolute; top:6px; right:7px; display:grid; place-items:center; width:18px; height:18px; background:#3c7366; color:#fff9e8; border-radius:50%; font:700 12px/1 var(--sans); }
+#rider-notice { margin:12px 0 0; color:var(--ink-soft); font-size:13px; }
+#rider-notice:empty { display:none; }
+@media(max-width:620px) {
+  .intro-actions { gap:6px; }
+  .rider-button { min-height:37px; padding:3px 6px; gap:4px; font-size:11px; }
+  .rider-button .rider-portrait { width:22px; height:22px; }
+}
+@media(max-height:500px) and (orientation:landscape) {
+  .rider-option .rider-portrait { width:48px; height:48px; }
+}
 .guide-top { display:flex; align-items:center; justify-content:space-between; }
 .close-button { width:29px; height:29px; padding:4px; background:transparent; border:1px solid var(--line); border-radius:50%; }
 .close-button .icon { width:16px; height:16px; }
@@ -171,6 +198,16 @@ dialog > p { margin:10px 0 14px; font-size:14px; }
 .guide-row b { margin-bottom:3px; font-size:14px; }
 .guide-row span { color:#52645d; font-size:13px; }
 .guide-fish { width:33px; height:26px; }
+.wildlife-guide { border-block:1px dashed var(--line); padding:10px 0; }
+.wildlife-guide summary { cursor:pointer; font-size:14px; font-weight:700; }
+.wildlife-guide ul { display:grid; grid-template-columns:repeat(3,minmax(0,1fr)); gap:10px; list-style:none; margin:12px 0 3px; padding:0; }
+.wildlife-guide li { display:grid; justify-items:center; gap:2px; font-size:12px; color:var(--ink-soft); }
+.wildlife-guide i { width:65px; aspect-ratio:156/100; background:url("assets/art/wildlife-guide.webp") 0 0/300% 200% no-repeat; }
+.wildlife-guide li:nth-child(2) i { background-position:50% 0; }
+.wildlife-guide li:nth-child(3) i { background-position:100% 0; }
+.wildlife-guide li:nth-child(4) i { background-position:0 100%; }
+.wildlife-guide li:nth-child(5) i { background-position:50% 100%; }
+.wildlife-guide li:nth-child(6) i { background-position:100% 100%; }
 dialog .start-button { margin-top:9px; }
 .cabinet:fullscreen, .cabinet.expanded { display:flex; flex-direction:column; width:100vw; height:100dvh; max-width:none; margin:0; border:0; border-radius:0; }
 .cabinet.expanded { position:fixed; z-index:10; inset:0; }
